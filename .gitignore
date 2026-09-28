@@ -10,3 +10,14 @@ npm-debug.log*
 coverage/
 .DS_Store
 Thumbs.db
+
+# Process/audit docs and test suite kept locally but not published to GitHub
+REQUIREMENTS.md
+ARCHITECTURE.md
+DATABASE.md
+API.md
+SECURITY.md
+SECURITY_REVIEW.md
+CODE_REVIEW.md
+TESTING.md
+tests/
