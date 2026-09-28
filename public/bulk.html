@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bulk URL Shortener — URLShortener</title>
+  <meta name="description" content="Shorten many URLs at once and export the results to Excel." />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a class="navbar__brand" href="/">
+        <span class="navbar__mark" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 13a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 11a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>URLShortener</span>
+      </a>
+      <nav class="navbar__nav" aria-label="Primary">
+        <a class="navbar__link" href="/">Dashboard</a>
+        <a class="navbar__link" href="/bulk.html" aria-current="page">Bulk Shortener</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container">
+      <div class="section-heading section-heading--flush">
+        <div>
+          <h2>Bulk URL Shortener</h2>
+          <p>Paste multiple URLs, one per line, and shorten them all at once.</p>
+        </div>
+      </div>
+
+      <div class="bulk-layout">
+        <div class="panel">
+          <p class="panel__title">Paste your URLs</p>
+          <p class="panel__desc">One URL per line. Up to 100 URLs per batch.</p>
+          <label class="visually-hidden" for="bulk-input">URLs, one per line</label>
+          <textarea
+            class="input"
+            id="bulk-input"
+            rows="8"
+            placeholder="https://google.com&#10;https://github.com&#10;https://stackoverflow.com&#10;https://example.com"
+            spellcheck="false"
+          ></textarea>
+          <p class="field-error" id="bulk-error" role="alert"></p>
+
+          <div class="bulk-actions">
+            <button class="btn btn--primary" type="button" id="bulk-submit">
+              <span id="bulk-submit-label">Shorten URLs</span>
+            </button>
+            <button class="btn btn--secondary" type="button" id="bulk-clear">Clear</button>
+          </div>
+        </div>
+
+        <div class="panel is-hidden" id="bulk-results-panel">
+          <p class="panel__title">Results</p>
+          <p class="panel__desc">Successful and invalid URLs from your last batch.</p>
+
+          <div class="bulk-summary">
+            <span class="summary-pill summary-pill--success" id="summary-success">0 shortened</span>
+            <span class="summary-pill summary-pill--danger" id="summary-invalid">0 invalid</span>
+          </div>
+
+          <div class="bulk-actions">
+            <button class="btn btn--secondary btn--sm" type="button" id="bulk-download-btn">Download Excel</button>
+          </div>
+
+          <div class="table-card table-card--spaced">
+            <div class="table-scroll">
+              <table class="data-table" id="bulk-results-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Original URL</th>
+                    <th scope="col">Short URL</th>
+                    <th scope="col">Clicks</th>
+                    <th scope="col" class="th-actions">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="bulk-results-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <ul class="invalid-list is-hidden" id="bulk-invalid-list"></ul>
+        </div>
+
+        <div class="panel state-block is-hidden" id="bulk-empty-state">
+          <span class="state-block__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <p class="state-block__title">No results yet</p>
+          <p class="state-block__desc">Paste some URLs above and click "Shorten URLs" to see results here.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container">Built with Node.js, Express &amp; SQLite — <a href="https://github.com" target="_blank" rel="noopener noreferrer">view source</a></div>
+    </footer>
+  </main>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+
+  <script src="/js/util.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/bulk.js"></script>
+</body>
+</html>
